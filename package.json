@@ -1,5 +1,5 @@
 {
-  "name": "socket.io-path",
+  "name": "socket.io-topic-router",
   "version": "0.0.1",
   "description": "Express like path middleware for socket.io",
   "main": "index.js",
@@ -8,7 +8,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/cristovao-trevisan/socket.io-path.git"
+    "url": "git+https://github.com/cristovao-trevisan/socket.io-topic-router.git"
   },
   "keywords": [
     "socket.io",
@@ -19,9 +19,9 @@
   "author": "Cristóvão Trevisan",
   "license": "LGPL-3.0",
   "bugs": {
-    "url": "https://github.com/cristovao-trevisan/socket.io-path/issues"
+    "url": "https://github.com/cristovao-trevisan/socket.io-topic-router/issues"
   },
-  "homepage": "https://github.com/cristovao-trevisan/socket.io-path#readme",
+  "homepage": "https://github.com/cristovao-trevisan/socket.io-topic-router#readme",
   "devDependencies": {
     "jasmine": "^2.6.0",
     "socket.io": "^2.0.1",

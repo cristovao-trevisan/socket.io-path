@@ -2,7 +2,7 @@ const io = require('socket.io')
 const ioClient = require('socket.io-client')
 const ioRouter = require('../index')
 
-describe('socket.io-path', () => {
+describe('socket.io-topic-router', () => {
   it('should call listerner with correct arguments', (done) => {
     let server = io(10066)
     let router = ioRouter()
