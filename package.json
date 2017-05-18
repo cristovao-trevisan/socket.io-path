@@ -1,0 +1,45 @@
+{
+  "name": "socket.io-path",
+  "version": "0.0.1",
+  "description": "Express like path middleware for socket.io",
+  "main": "index.js",
+  "scripts": {
+    "test": "standard && jasmine"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/cristovao-trevisan/socket.io-path.git"
+  },
+  "keywords": [
+    "socket.io",
+    "express",
+    "path",
+    "middleware"
+  ],
+  "author": "Cristóvão Trevisan",
+  "license": "LGPL-3.0",
+  "bugs": {
+    "url": "https://github.com/cristovao-trevisan/socket.io-path/issues"
+  },
+  "homepage": "https://github.com/cristovao-trevisan/socket.io-path#readme",
+  "devDependencies": {
+    "jasmine": "^2.6.0",
+    "socket.io": "^2.0.1",
+    "socket.io-client": "^2.0.1",
+    "standard": "^10.0.2"
+  },
+  "standard": {
+    "env": "jasmine",
+    "ignore": [
+      "node_modules"
+    ]
+  },
+  "jasmine": {
+    "spec_files": [
+      "**/*[sS]pec.js"
+    ]
+  },
+  "dependencies": {
+    "path-to-regexp": "^1.7.0"
+  }
+}
