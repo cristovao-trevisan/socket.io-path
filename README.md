@@ -11,7 +11,7 @@ Express like routing middleware for socket.io
 ### Server
 ```javascript
 const io = require('socket.io')(8080)
-const ioRouter = require('../index')()
+const ioRouter = require('socket.io-topic-router')()
 
 io.use(ioRouter)
 ioRouter.route('foo/:bar', (params, arg1, arg2) => {

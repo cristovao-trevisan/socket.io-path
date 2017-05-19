@@ -11,29 +11,31 @@ class Middleware {
     this.keys = []
     // listener for each route above
     this.listeners = []
-    this.registerSocket = this.registerSocket.bind(this)
+    this.onPacket = this.onPacket.bind(this)
     this.register = this.register.bind(this)
     this.route = this.route.bind(this)
   }
 
   /**
-   * @description Function passed to socket.io to register middlware (-> io.use(register))
+   * @description Function passed to socket.io to register middlware for each socket (-> io.use(register))
    * @param {Object} socket Socket.io socket
    * @param {function} next
   */
   register (socket, next) {
-    socket.use(this.registerSocket)
+    socket.use(this.onPacket)
     next()
   }
 
   /**
-   * @description Used to register each socket (=>socket.use(registerSocket)), called by {@link Middleware.register}
+   * @description Called for each received packet
+   * @private
    * @param {Array} packet Array with topic + args
    * @param {function} next
   */
-  registerSocket (packet, next) {
+  onPacket (packet, next) {
     let topic = packet[0]
-    this.routes.reverse().forEach((route, i) => {
+    for (let i = this.routes.length - 1; i >= 0; i--) {
+      var route = this.routes[i]
       let resp = route.exec(topic)
       if (resp) {
         let params = {}
@@ -43,7 +45,7 @@ class Middleware {
         this.listeners[i](params, ...packet.slice(1))
         return next()
       }
-    })
+    }
     next()
   }
   /**
