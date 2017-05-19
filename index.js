@@ -33,7 +33,7 @@ class Middleware {
   */
   registerSocket (packet, next) {
     let topic = packet[0]
-    this.routes.forEach((route, i) => {
+    this.routes.reverse().forEach((route, i) => {
       let resp = route.exec(topic)
       if (resp) {
         let params = {}
