@@ -1,6 +1,6 @@
 {
   "name": "socket.io-topic-router",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "Express like path middleware for socket.io",
   "main": "index.js",
   "scripts": {
