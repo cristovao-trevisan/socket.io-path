@@ -9,6 +9,7 @@
   Express like routing middleware for socket.io
   </b>
 </p>
+
 ## Install
 
 `npm install socket.io-topic-router`
