@@ -16,25 +16,85 @@
 
 ## Usage
 
-### Server
+### Basic
+
+#### Server
 ```javascript
 const io = require('socket.io')(8080)
 const ioRouter = require('socket.io-topic-router')()
 
 io.use(ioRouter)
-ioRouter.route('foo/:bar', (params, arg1, arg2) => {
+ioRouter.route('foo/:bar', (params, [arg1, arg2], next, socket) => {
   console.log(params, arg1, arg2)
   // params.bar === '1234'
   // arg1 === 'arg1'
   // arg2 === 'arg2'
+  socket.emit('foo/1234', 'bar')
+  next() // this must always be called
 })
 ```
 
-### Client
+#### Client
 
 ```javascript
 const io = require('socket.io-client')
 
 var socket = io('http://localhost:8080')
+socket.on('foo/1234', resp => {
+  // resp === 'bar'
+})
 socket.emit('foo/1234', 'arg1', 'arg2')
+```
+
+### Multiple Callbacks
+
+#### Server
+```javascript
+const io = require('socket.io')(8080)
+const ioRouter = require('./index')()
+
+const ensureAuth = (params, args, next) => {
+  var {username, password} = args[0]
+  if (username === 'admin' && password === '1234') {
+    next()
+  } else {
+    next(new Error('Need authentication'))
+  }
+}
+
+io.use(ioRouter)
+ioRouter.route('user/:id', ensureAuth, (params, args, next, socket) => {
+  var user = {name: 'Jack Sparrow'}
+  socket.emit('user/' + params.id, user)
+  next() // this must always be called
+})
+```
+
+#### Client
+
+```javascript
+const io = require('socket.io-client')
+
+var socket1 = io('http://localhost:8080')
+socket1.on('user/1', user => {
+  console.log('Socket 1:', user)
+  // user.name === 'Jack Sparrow'
+})
+socket1.emit('user/1', {
+  username: 'admin',
+  password: '1234'
+})
+
+var socket2 = io('http://localhost:8080')
+socket2.on('user/1', user => {
+  // never called'
+})
+socket2.on('error', err => {
+  console.log('Socket 2:', err)
+  // Need authentication
+})
+socket2.emit('user/1', {
+  username: 'admin',
+  password: 'not this'
+})
 ```
