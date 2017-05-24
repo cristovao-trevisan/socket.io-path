@@ -31,6 +31,7 @@ class Middleware {
 
   /**
    * ΨHell madeΨ function to build an executable chain for the given listeners
+   * @private
    * @param {listenerCallback[]} listeners Listeners array
    * @param {Function} onComplete call after last next is called
    * @return {Function} The return is a constructor for the chain that needs 2 arguments, params and args
@@ -104,7 +105,7 @@ class Middleware {
   * @description This callback is given for each path match
   * @param {string[]} params Parameters from path
   * @param {string[]} args Data from message (except topic)
-  * @param {function} next Data from message (except topic)
+  * @param {function} next Function that must be called after callback execution (only param is err, if any)
   * @param {io.Socket} socket The socket that got the message
   */
 

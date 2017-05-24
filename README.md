@@ -52,7 +52,7 @@ socket.emit('foo/1234', 'arg1', 'arg2')
 #### Server
 ```javascript
 const io = require('socket.io')(8080)
-const ioRouter = require('./index')()
+const ioRouter = require('socket.io-topic-router')()
 
 const ensureAuth = (params, args, next) => {
   var {username, password} = args[0]
