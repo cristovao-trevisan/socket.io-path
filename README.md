@@ -41,6 +41,7 @@ const io = require('socket.io-client')
 
 var socket = io('http://localhost:8080')
 socket.on('foo/1234', resp => {
+  console.log(resp)
   // resp === 'bar'
 })
 socket.emit('foo/1234', 'arg1', 'arg2')
