@@ -190,6 +190,33 @@ describe('socket.io-topic-router', () => {
     client.emit('foo/1234', 'arg1', 'arg2')
   })
 
+  it('should give the correct socket as parameter', (done) => {
+    let router = ioRouter()
+    server.use(router)
+
+    router.route('foo/:bar', (params, [msg], next, socket) => {
+      socket.emit('foo/' + params.bar, msg)
+    })
+
+    client = ioClient('http://localhost:10066')
+    let client2 = ioClient('http://localhost:10066')
+    let client3 = ioClient('http://localhost:10066')
+
+    client.on('foo/1234', resp => {
+      expect(resp).toEqual('client1')
+      client2.emit('foo/1234', 'client2')
+    })
+    client2.on('foo/1234', resp => {
+      expect(resp).toEqual('client2')
+      client3.emit('foo/1234', 'client3')
+    })
+    client3.on('foo/1234', resp => {
+      expect(resp).toEqual('client3')
+      done()
+    })
+    client.emit('foo/1234', 'client1')
+  })
+
   afterEach(() => {
     client && client.close()
     server.close()
