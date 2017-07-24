@@ -24,19 +24,16 @@
   "homepage": "https://github.com/cristovao-trevisan/socket.io-topic-router#readme",
   "devDependencies": {
     "jasmine": "^2.6.0",
-    "socket.io": "^2.0.1",
-    "socket.io-client": "^2.0.1",
+    "jasmine-console-reporter": "^1.2.7",
+    "leakage": "^0.3.0",
+    "socket.io": "^2.0.3",
+    "socket.io-client": "^2.0.3",
     "standard": "^10.0.2"
   },
   "standard": {
     "env": "jasmine",
     "ignore": [
       "node_modules"
-    ]
-  },
-  "jasmine": {
-    "spec_files": [
-      "**/*[sS]pec.js"
     ]
   },
   "dependencies": {

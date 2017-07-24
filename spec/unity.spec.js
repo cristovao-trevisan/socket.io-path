@@ -2,7 +2,7 @@ const io = require('socket.io')
 const ioClient = require('socket.io-client')
 const ioRouter = require('../index')
 
-describe('socket.io-topic-router', () => {
+describe('unity', () => {
   let server
   let client
   beforeEach(() => {
@@ -196,6 +196,7 @@ describe('socket.io-topic-router', () => {
 
     router.route('foo/:bar', (params, [msg], next, socket) => {
       socket.emit('foo/' + params.bar, msg)
+      next()
     })
 
     client = ioClient('http://localhost:10066')
@@ -212,13 +213,15 @@ describe('socket.io-topic-router', () => {
     })
     client3.on('foo/1234', resp => {
       expect(resp).toEqual('client3')
+      client2.close()
+      client3.close()
       done()
     })
     client.emit('foo/1234', 'client1')
   })
 
-  afterEach(() => {
+  afterEach((done) => {
     client && client.close()
-    server.close()
+    server.close(done)
   })
 })

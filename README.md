@@ -30,7 +30,6 @@ ioRouter.route('foo/:bar', (params, [arg1, arg2], next, socket) => {
   // arg1 === 'arg1'
   // arg2 === 'arg2'
   socket.emit('foo/1234', 'bar')
-  next() // this must always be called
 })
 ```
 
@@ -67,7 +66,6 @@ io.use(ioRouter)
 ioRouter.route('user/:id', ensureAuth, (params, args, next, socket) => {
   var user = {name: 'Jack Sparrow'}
   socket.emit('user/' + params.id, user)
-  next() // this must always be called
 })
 ```
 
